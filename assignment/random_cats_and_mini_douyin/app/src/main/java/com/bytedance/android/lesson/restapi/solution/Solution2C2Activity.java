@@ -187,14 +187,15 @@ public class Solution2C2Activity extends AppCompatActivity {
         PostVideoResponse mPostVideoResponse = new PostVideoResponse();
         String student_id = "1120161926";
         String username = "Peng Bingfeng";
-        MultipartBody.Part image = getMultipartFromUri("Image",mSelectedImage);
+        MultipartBody.Part image = getMultipartFromUri("cover_image",mSelectedImage);
+        //Log.e("ImageUrl", "postVideo: "+mSelectedImage+image );
         MultipartBody.Part video = getMultipartFromUri("video",mSelectedVideo);
         Retrofit postVideoResponse = RetrofitManager.get("http://test.androidcamp.bytedance.com/");
         postVideoResponse.create(IMiniDouyinService.class).createVideo(student_id,username,image,video).enqueue(new Callback<PostVideoResponse>() {
             @Override
             public void onResponse(Call<PostVideoResponse> call, Response<PostVideoResponse> response) {
 
-                Log.d("RequestFeed", "onResponse: "+response.body().getItem().getImageUrl());
+                //Log.d("RequestFeed", "onResponse: "+response.body().getFeeds().getImageUrl());
                 resetRefreshBtn();
                 fetchFeed(mRv);
                 Toast.makeText(Solution2C2Activity.this,"上传成功",Toast.LENGTH_SHORT).show();
@@ -202,7 +203,8 @@ public class Solution2C2Activity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<PostVideoResponse> call, Throwable t) {
-
+                t.printStackTrace();
+                Toast.makeText(Solution2C2Activity.this,"上传失败",Toast.LENGTH_SHORT).show();
             }
         });
     }

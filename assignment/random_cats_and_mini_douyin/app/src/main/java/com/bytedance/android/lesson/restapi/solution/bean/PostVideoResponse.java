@@ -30,12 +30,12 @@ public class PostVideoResponse {
 //        video = Video;
 //    }
     @SerializedName("success") private Boolean success;
-    @SerializedName("item") private Item item;
+    @SerializedName("feeds") private Item feeds;
     public Boolean getSuccess(){
         return success;
     }
-    public Item getItem(){
-        return item;
+    public Item getFeeds(){
+        return feeds;
     }
     public class Item{
         @SerializedName("student_id") private String studentId;
